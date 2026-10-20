@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shubh Invite</title>
+  <script>
+    // Redirect to the SPA with the attempted path encoded in the hash,
+    // so the hash router can restore the correct view after the 404 redirect.
+    var path = window.location.pathname;
+    var base = '/shubh-invite';
+    var relative = path.replace(base, '') || '/';
+    window.location.replace(base + '/#' + relative + window.location.search);
+  </script>
+</head>
+<body></body>
+</html>

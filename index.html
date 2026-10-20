@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+        content="Create beautiful, personalised wedding and celebration invitations for Hindu, Muslim, Christian, Sikh and Jain traditions — free, instant, no login required." />
+  <meta name="theme-color" content="#6E1F2E" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="Shubh Invite — Celebration Invitation Builder" />
+  <meta property="og:description" content="Free, culturally-sensitive invitation templates for every tradition. Customise and download in minutes." />
+  <meta property="og:url"         content="https://yourusername.github.io/shubh-invite/" />
+
+  <title>Shubh Invite — Celebration Invitation Builder</title>
+
+  <!-- PWA manifest (Phase 5) -->
+  <!-- <link rel="manifest" href="/shubh-invite/manifest.json" /> -->
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/shubh-invite/favicon.svg" />
+
+  <!-- Fonts are self-hosted via @fontsource-variable npm packages, bundled by Vite -->
+</head>
+<body>
+  <!-- Skip navigation link for keyboard users -->
+  <a href="#main-content" id="skip-link"
+     style="position:absolute;left:-9999px;top:0;z-index:9999;
+            padding:0.5rem 1rem;background:var(--c-maroon,#6E1F2E);
+            color:#fff;font-family:sans-serif;border-radius:0 0 6px 6px;"
+     onfocus="this.style.left='0'">
+    Skip to main content
+  </a>
+
+  <div id="app"></div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
