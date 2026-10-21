@@ -115,4 +115,8 @@ function init$() {
   document.getElementById('skip-link')?.addEventListener('click', () => main.focus());
 }
 
-document.addEventListener('DOMContentLoaded', init$);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init$);
+} else {
+  init$();
+}
