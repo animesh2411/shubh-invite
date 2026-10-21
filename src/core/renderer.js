@@ -5,6 +5,8 @@
  * Also provides helpers used inside template render functions.
  */
 
+import { svgFitText, wrapLines } from './textFit.js';
+
 // ── XML escaping ─────────────────────────────────────────────────
 export function escapeXML(str) {
   if (str === null || str === undefined) return '';
@@ -117,8 +119,9 @@ export function svgText(text, opts) {
 
   const dirAttr = direction === 'rtl' ? ' direction="rtl" unicode-bidi="bidi-override"' : '';
   const lsAttr = letterSpacing ? ` letter-spacing="${letterSpacing}"` : '';
+  const extra = extraAttrs ? (extraAttrs.trim().startsWith(' ') ? extraAttrs : ' ' + extraAttrs.trim()) : '';
 
-  return `<text x="${x}" y="${y}" text-anchor="${textAnchor}" font-family="${escapeXML(fontFamily)}" font-size="${fontSize}" font-weight="${fontWeight}" fill="${fill}"${dirAttr}${lsAttr}${extraAttrs}>${tspans}</text>`;
+  return `<text x="${x}" y="${y}" text-anchor="${textAnchor}" font-family="${escapeXML(fontFamily)}" font-size="${fontSize}" font-weight="${fontWeight}" fill="${fill}"${dirAttr}${lsAttr}${extra}>${tspans}</text>`;
 }
 
 /**
@@ -130,21 +133,56 @@ export function buildHelpers() {
     measureText,
     wrapText,
     svgText,
+    svgFitText,
+    wrapLines,
   };
 }
 
 /**
  * Main render function.
- * @param {object} template   — a full template module object
- * @param {object} values     — user-edited field values { [field.key]: string }
- * @returns {string}          — complete SVG markup string
+ * @param {object} template           — a full template module object
+ * @param {object} values             — user-edited field values { [field.key]: string }
+ * @param {object} [customPalette]    — optional user-customized palette overrides
+ * @param {string} [customFontPairId] — optional user-selected font pair ID
+ * @returns {string}                  — complete SVG markup string
  */
-export function render(template, values) {
+export function render(template, values, customPalette, customFontPairId) {
   const helpers = buildHelpers();
+
+  // 1. Resolve active font pair
+  const activePairId = customFontPairId || values?.fontPair || template.fontPairs?.[0]?.id || 'classic';
+  const pair = (template.fontPairs || []).find((p) => p.id === activePairId) || template.fontPairs?.[0] || {};
+
+  const activeFonts = {
+    ...template.fonts,
+    display: pair.display || template.fonts?.display || 'Playfair Display',
+    body:    pair.body    || template.fonts?.body    || 'Jost',
+    script:  pair.script  || pair.display || template.fonts?.script || 'Cormorant Garamond',
+    native:  template.fonts?.native || 'Noto Serif Devanagari',
+  };
+
+  helpers.fonts = activeFonts;
+
+  // 2. Resolve palette: apply user custom overrides cleanly without clobbering template art colors
+  const palette = {
+    ...template.palette,
+    ...(customPalette || {}),
+  };
+
+  const renderContext = {
+    ...template,
+    palette,
+    fonts: activeFonts,
+  };
+
+  const renderValues = {
+    ...(values || {}),
+    fontPair: activePairId,
+  };
 
   let svgContent;
   try {
-    svgContent = template.render(values, template.palette, helpers);
+    svgContent = template.render.call(renderContext, renderValues, palette, helpers);
   } catch (err) {
     console.error(`[renderer] Error rendering "${template.id}":`, err);
     // Return a simple error placeholder SVG

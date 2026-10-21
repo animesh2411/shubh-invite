@@ -105,6 +105,10 @@ export default {
     const { svgText, escapeXML } = helpers;
     const v = values;
 
+    const activePair = (this?.fontPairs || []).find((p) => p.id === v.fontPair) || (this?.fontPairs || [])[0] || {};
+    const displayFont = activePair.display || this?.fonts?.display || 'Cormorant Garamond';
+    const bodyFont = activePair.body || this?.fonts?.body || 'Jost';
+
     // ── Background ────────────────────────────────────────────
     const bg = `<rect x="0" y="0" width="${W}" height="${H}" fill="${palette.bg}"/>`;
 
@@ -197,7 +201,7 @@ export default {
     const eventSVG = svgText(v.eventType || 'Nikah Invitation', {
       x: W / 2, y: 380,
       maxWidth: W - 300, fontSize: 30,
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: `${bodyFont}, sans-serif`,
       fontWeight: '400',
       fill: palette.ink,
       textAnchor: 'middle',
@@ -208,7 +212,7 @@ export default {
     const groomSVG = svgText(v.groomName || 'Zaid Al-Rashid', {
       x: W / 2, y: 560,
       maxWidth: W - 280, fontSize: 74,
-      fontFamily: 'Cormorant Garamond, serif',
+      fontFamily: `${displayFont}, serif`,
       fontWeight: '700',
       fill: palette.ink,
       textAnchor: 'middle',
@@ -216,14 +220,14 @@ export default {
 
     const andSVG = `
       <text x="${W/2}" y="648" text-anchor="middle"
-            font-family="Cormorant Garamond, serif" font-style="italic"
+            font-family="${escapeXML(displayFont)}, serif" font-style="italic"
             font-size="48" fill="${palette.gold}">&amp;</text>
     `;
 
     const brideSVG = svgText(v.brideName || 'Aisha Khalid', {
       x: W / 2, y: 740,
       maxWidth: W - 280, fontSize: 74,
-      fontFamily: 'Cormorant Garamond, serif',
+      fontFamily: `${displayFont}, serif`,
       fontWeight: '700',
       fill: palette.ink,
       textAnchor: 'middle',
@@ -240,7 +244,7 @@ export default {
     const dateSVG = svgText(v.date || 'Friday, 20th March 2026', {
       x: W / 2, y: 850,
       maxWidth: W - 280, fontSize: 34,
-      fontFamily: 'Cormorant Garamond, serif',
+      fontFamily: `${displayFont}, serif`,
       fontWeight: '600',
       fill: palette.ink,
       textAnchor: 'middle',
@@ -249,7 +253,7 @@ export default {
     const timeSVG = svgText(v.time || "After Jumu'ah Prayer", {
       x: W / 2, y: 900,
       maxWidth: W - 280, fontSize: 28,
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: `${bodyFont}, sans-serif`,
       fontWeight: '400',
       fill: palette.ink,
       textAnchor: 'middle',
@@ -258,7 +262,7 @@ export default {
     const venueSVG = svgText(v.venue || 'Al-Noor Grand Hall, Hyderabad', {
       x: W / 2, y: 960,
       maxWidth: W - 280, fontSize: 32,
-      fontFamily: 'Cormorant Garamond, serif',
+      fontFamily: `${displayFont}, serif`,
       fontWeight: '400',
       fill: palette.ink,
       textAnchor: 'middle',
@@ -268,13 +272,13 @@ export default {
     // ── Hosted by ─────────────────────────────────────────────
     const hostedSVG = v.hostedBy ? `
       <text x="${W/2}" y="1080" text-anchor="middle"
-            font-family="Jost, sans-serif" font-size="22" fill="${palette.ink}" opacity="0.55">
+            font-family="${escapeXML(bodyFont)}, sans-serif" font-size="22" fill="${palette.ink}" opacity="0.55">
         hosted by
       </text>
       ${svgText(v.hostedBy, {
         x: W / 2, y: 1120,
         maxWidth: W - 280, fontSize: 30,
-        fontFamily: 'Cormorant Garamond, serif',
+        fontFamily: `${displayFont}, serif`,
         fontWeight: '600',
         fill: palette.ink,
         textAnchor: 'middle',
@@ -286,7 +290,7 @@ export default {
     const rsvpSVG = v.rsvp ? svgText(`RSVP: ${v.rsvp}`, {
       x: W / 2, y: 1250,
       maxWidth: W - 280, fontSize: 26,
-      fontFamily: 'Jost, sans-serif',
+      fontFamily: `${bodyFont}, sans-serif`,
       fontWeight: '400',
       fill: palette.ink,
       textAnchor: 'middle',

@@ -3,20 +3,30 @@
  * Import new templates here as they are added.
  */
 
-import marigoldMandap  from './hindu/marigold-mandap.js';
-import mihrabEmerald   from './muslim/mihrab-emerald.js';
+import marigoldMandap       from './hindu/marigold-mandap.js';
+import rajwadaArch          from './hindu/rajwada-arch.js';
+import mihrabEmerald        from './muslim/mihrab-emerald.js';
+import ivoryArabesque       from './muslim/ivory-arabesque.js';
+import jainLotusPond        from './jain/lotus-pond.js';
+import kalashGold           from './jain/kalash-gold.js';
+import christianOliveLight  from './christian/olive-light.js';
+import christianStainedGlass from './christian/stained-glass.js';
+
+import sikhNavyAnand        from './sikh/navy-anand.js';
+import sikhPhulkariSaffron   from './sikh/phulkari-saffron.js';
 
 /** @type {import('./types').Template[]} */
 export const templates = [
   marigoldMandap,
+  rajwadaArch,
   mihrabEmerald,
-  // Phase 3 additions:
-  // hinduRajwadaArch,
-  // muslimIvoryArabesque,
-  // Phase 4:
-  // christianOliveLight, christianStainedGlass,
-  // sikhPhulkariSaffron, sikhNavyAnand,
-  // jainLotusPond, jainKalashGold,
+  ivoryArabesque,
+  jainLotusPond,
+  kalashGold,
+  christianOliveLight,
+  christianStainedGlass,
+  sikhNavyAnand,
+  sikhPhulkariSaffron,
 ];
 
 /** Lookup a template by its id. */

@@ -67,8 +67,18 @@ function render() {
   }
   currentCleanup = result.cleanup ?? null;
 
-  // Scroll to top on navigation
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  // Scroll: if navigating to /gallery, scroll down to the gallery section
+  if (path === '/gallery') {
+    requestAnimationFrame(() => {
+      const gallery = document.getElementById('gallery');
+      if (gallery) {
+        gallery.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  } else {
+    // Scroll to top on other routes
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
 }
 
 export function init() {

@@ -18,6 +18,7 @@ const TRADITIONS = [
 
 const OCCASIONS = [
   { id: 'wedding',      label: 'Wedding' },
+  { id: 'anand-karaj',  label: 'Anand Karaj' },
   { id: 'nikah',        label: 'Nikah' },
   { id: 'engagement',   label: 'Engagement' },
   { id: 'birthday',     label: 'Birthday' },
@@ -79,7 +80,7 @@ function buildHero() {
           and download a stunning invitation in minutes.
         </p>
         <div class="hero__cta">
-          <a href="#/gallery" class="btn btn--primary btn--lg" id="cta-choose-design">
+          <a href="#gallery" class="btn btn--primary btn--lg" id="cta-choose-design" data-action="scroll-to-gallery">
             Choose a design
           </a>
         </div>
@@ -337,7 +338,13 @@ export function createGalleryPage() {
     const action = target.dataset.action;
     const val    = target.dataset.val ?? '';
 
-    if (action === 'filter-tradition') {
+    if (action === 'scroll-to-gallery') {
+      e.preventDefault();
+      const galleryEl = document.getElementById('gallery') || el.querySelector('#gallery');
+      if (galleryEl) {
+        galleryEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (action === 'filter-tradition') {
       state.tradition = state.tradition === val ? '' : val;
       rerenderGalleryOnly();
     } else if (action === 'filter-occasion') {
@@ -348,10 +355,11 @@ export function createGalleryPage() {
     } else if (action === 'go-tradition') {
       // Set tradition filter and scroll to gallery
       state.tradition = val;
-      navigate('#/gallery');
-      setTimeout(() => {
-        document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
-      }, 50);
+      rerenderGalleryOnly();
+      const galleryEl = document.getElementById('gallery') || el.querySelector('#gallery');
+      if (galleryEl) {
+        galleryEl.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   }
 
