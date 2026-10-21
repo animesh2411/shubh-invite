@@ -37,7 +37,7 @@ import './src/styles/gallery.css';
 // ── Core ──────────────────────────────────────────────────────────
 import { on, mount, init } from './src/core/router.js';
 import { createGalleryPage } from './src/ui/gallery.js';
-import { createEditorPage }  from './src/ui/editor.js';
+import { createEditorPage } from './src/ui/editor.js';
 
 // ── Navigation bar ────────────────────────────────────────────────
 function buildNav() {
@@ -83,6 +83,9 @@ function buildAboutPage() {
       A free, open-source invitation builder for every celebration — designed with
       cultural care and built entirely in the browser. No login. No data collected.
     </p>
+    <br>
+    <p>Built with 💕 by <a href="https://github.com/animesh2411">Animesh Gupta</a></p>
+    <p>Follow us on <a href="https://instagram.com/snaps.ind/">Instagram</a></p>
     <a href="#/" class="btn btn--ghost" style="margin-top:1rem;">← Back to designs</a>
   `;
   return { el };
@@ -104,10 +107,10 @@ function init$() {
   mount(main);
 
   // ── Routes ────────────────────────────────────────────────────
-  on('/',        () => createGalleryPage());
+  on('/', () => createGalleryPage());
   on('/gallery', () => createGalleryPage());
   on(/^\/editor\/(?<id>.+)$/, (params) => createEditorPage(params));
-  on('/about',   () => buildAboutPage());
+  on('/about', () => buildAboutPage());
 
   init();
 
