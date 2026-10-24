@@ -197,7 +197,7 @@ export function createEditorPage(params) {
     formBody.appendChild(coloursPanel);
     formBody.appendChild(fontsPanel);
 
-    const activeTabBtn = tabBar.querySelector('.editor-tab.active');
+    const activeTabBtn = tabBar.querySelector('.editor-tab[aria-selected="true"]') || tabBar.querySelector('.editor-tab.active');
     const activeTab = activeTabBtn?.dataset.tab ?? 'text';
     switchTab(activeTab);
   }
@@ -254,8 +254,23 @@ export function createEditorPage(params) {
   }
 
   function switchTab(tabId) {
-    [textPanel, coloursPanel, fontsPanel].forEach((p) => p.classList.remove('active'));
-    document.getElementById(`tab-panel-${tabId}`)?.classList.add('active');
+    const panels = {
+      text: textPanel,
+      colours: coloursPanel,
+      fonts: fontsPanel,
+    };
+    [textPanel, coloursPanel, fontsPanel].forEach((p) => p?.classList.remove('active'));
+    if (panels[tabId]) {
+      panels[tabId].classList.add('active');
+    } else {
+      (formBody.querySelector(`#tab-panel-${tabId}`) || document.getElementById(`tab-panel-${tabId}`))?.classList.add('active');
+    }
+
+    tabBar.querySelectorAll('.editor-tab').forEach((b) => {
+      const isSelected = b.dataset.tab === tabId || b.id === `tab-${tabId}`;
+      b.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      b.classList.toggle('active', isSelected);
+    });
   }
 
   // ── Button handlers ───────────────────────────────────────────

@@ -324,16 +324,21 @@ export function buildTabBar(tabs, onTab) {
 
   tabs.forEach((tabId, i) => {
     const btn = document.createElement('button');
-    btn.className = 'editor-tab';
+    btn.className = `editor-tab${i === 0 ? ' active' : ''}`;
     btn.id = `tab-${tabId}`;
+    btn.dataset.tab = tabId;
     btn.setAttribute('role', 'tab');
     btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
     btn.setAttribute('aria-controls', `tab-panel-${tabId}`);
     btn.textContent = tabId.charAt(0).toUpperCase() + tabId.slice(1);
 
     btn.addEventListener('click', () => {
-      bar.querySelectorAll('.editor-tab').forEach((b) => b.setAttribute('aria-selected', 'false'));
+      bar.querySelectorAll('.editor-tab').forEach((b) => {
+        b.setAttribute('aria-selected', 'false');
+        b.classList.remove('active');
+      });
       btn.setAttribute('aria-selected', 'true');
+      btn.classList.add('active');
       onTab(tabId);
     });
 
