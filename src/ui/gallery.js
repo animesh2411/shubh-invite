@@ -21,14 +21,13 @@ const TRADITIONS = [
 
 const OCCASIONS = [
   { id: 'wedding',      label: 'Wedding' },
+  { id: 'engagement',   label: 'Engagement' },
   { id: 'anand-karaj',  label: 'Anand Karaj' },
   { id: 'nikah',        label: 'Nikah' },
-  { id: 'engagement',   label: 'Engagement' },
-  { id: 'birthday',     label: 'Birthday' },
-  { id: 'baby',         label: 'Baby' },
   { id: 'housewarming', label: 'Housewarming' },
-  { id: 'festival',     label: 'Festival' },
+  { id: 'baby',         label: 'Baby Shower' },
   { id: 'ceremony',     label: 'Ceremony' },
+  { id: 'festival',     label: 'Festival' },
 ];
 
 /** Build the hero section with a fan of 5 tradition-representative cards. */
