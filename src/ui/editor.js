@@ -50,6 +50,7 @@ function showToast(msg, duration = 2400) {
 const TRADITION_LABELS = {
   hindu: 'Hindu', muslim: 'Muslim', christian: 'Christian',
   sikh: 'Sikh', jain: 'Jain',
+  'south-indian': 'South Indian', bengali: 'Bengali', secular: 'Modern',
 };
 
 /**

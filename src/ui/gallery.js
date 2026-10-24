@@ -9,11 +9,14 @@ import { navigate } from '../core/router.js';
 
 // Tradition display config
 const TRADITIONS = [
-  { id: 'hindu',     label: 'Hindu',     emoji: '🪔' },
-  { id: 'muslim',    label: 'Muslim',    emoji: '☪️' },
-  { id: 'christian', label: 'Christian', emoji: '✝️' },
-  { id: 'sikh',      label: 'Sikh',      emoji: '☬' },
-  { id: 'jain',      label: 'Jain',      emoji: '🕊️' },
+  { id: 'hindu',        label: 'Hindu',        emoji: '🪔' },
+  { id: 'muslim',       label: 'Muslim',       emoji: '☪️' },
+  { id: 'christian',    label: 'Christian',    emoji: '✝️' },
+  { id: 'sikh',         label: 'Sikh',         emoji: '☬' },
+  { id: 'jain',         label: 'Jain',         emoji: '🕊️' },
+  { id: 'south-indian', label: 'South Indian', emoji: '🌸' },
+  { id: 'bengali',      label: 'Bengali',      emoji: '🪷' },
+  { id: 'secular',      label: 'Modern',       emoji: '✨' },
 ];
 
 const OCCASIONS = [
